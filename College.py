@@ -64,13 +64,13 @@ class College:
         
         # ============================== BUTTON ==========================
         
-        ButtonFrame=Frame(self.root,bd=20,relief=RIDGE, bg="black")
-        ButtonFrame.place(x=0,y=530,width=1520,height=70)
+        ButtonFrame=Frame(self.root,bd=10,relief=RIDGE, bg="black")
+        ButtonFrame.place(x=0,y=500,width=1520,height=65)
         
         # ========================= DETAILS FRAME ==========================
         
-        DetailsFrame=Frame(self.root,bd=20,relief=RIDGE, bg="black")
-        DetailsFrame.place(x=0,y=600,width=1520,height=180)
+        DetailsFrame=Frame(self.root,bd=10,relief=RIDGE, bg="black")
+        DetailsFrame.place(x=0,y=555,width=1520,height=200)
         
         # ===================== VALIDATION FUNCTION ===================
         def validate_phone_number(new_value):
@@ -269,26 +269,44 @@ class College:
         
         # btnPrescription = Button(ButtonFrame, text="Prescription", bg="lightpink", fg="white", font=("arial", 12, "bold"), width=24, height=2, padx=2, pady=6, anchor=CENTER) 
         # btnPrescription.grid(row=0, column=0) 
-        btnSubmitData = Button(ButtonFrame, text="Submit Data", bg="lightblue", bd=5, fg="white", font=("arial", 12, "bold"), width=30, height=2, padx=2, pady=6, anchor=CENTER, command=self.iSubmitData) 
-        btnSubmitData.grid(row=0, column=1) 
-        btnUpdate = Button(ButtonFrame, text="Update", bg="lightpink", fg="white", bd=5, font=("arial", 12, "bold"), width=29, height=2, padx=2, pady=6, anchor=CENTER, command=self.iUpdate) 
-        btnUpdate.grid(row=0, column=2) 
-        btnDelete = Button(ButtonFrame, text="Delete", bg="lightblue", fg="white",bd=5, font=("arial", 12, "bold"), width=29, height=2, padx=2, pady=6, anchor=CENTER) 
-        btnDelete.grid(row=0, column=3)  
-        btnClear = Button(ButtonFrame, text="Clear", bg="lightpink", fg="white", bd=5,font=("arial", 12, "bold"), width=29, height=2, padx=2, pady=6, anchor=CENTER) 
-        btnClear.grid(row=0, column=4) 
-        btnExit = Button(ButtonFrame, text="Exit", bg="lightblue", fg="white", bd=5, font=("arial", 12, "bold"), width=29, height=2, padx=2, pady=6, anchor=CENTER) 
-        btnExit.grid(row=0, column=5)
+        btnSubmitData = Button(ButtonFrame, text="Submit Data", bg="violet", bd=5, fg="white", font=("arial", 12, "bold"), width=20, height=0, padx=2, pady=6, anchor=CENTER, command=self.iSubmitData) 
+        btnSubmitData.grid(row=0, column=0) 
+        btnUpdate = Button(ButtonFrame, text="Update", bg="indigo", fg="white", bd=5, font=("arial", 12, "bold"), width=20, height=0, padx=2, pady=6, anchor=CENTER, command=self.iUpdate) 
+        btnUpdate.grid(row=0, column=1) 
+        btnDelete = Button(ButtonFrame, text="Delete", bg="blue", fg="white",bd=5, font=("arial", 12, "bold"), width=20, height=0, padx=2, pady=6, anchor=CENTER, command=self.iDelete) 
+        btnDelete.grid(row=0, column=2)  
+        btnClear = Button(ButtonFrame, text="Clear", bg="Green", fg="white", bd=5,font=("arial", 12, "bold"), width=20, height=0, padx=2, pady=6, anchor=CENTER , command=self.iClear) 
+        btnClear.grid(row=0, column=3) 
+        btnExit = Button(ButtonFrame, text="Exit", bg="Yellow", fg="white", bd=5, font=("arial", 12, "bold"), width=18, height=0, padx=2, pady=6, anchor=CENTER , command=self.iExit) 
+        btnExit.grid(row=0, column=4)
+        btnQuiz = Button(ButtonFrame, text="Quiz", bg="Orange", fg="white", bd=5, font=("arial", 12, "bold"), width=20, height=0, padx=2, pady=6, anchor=CENTER ,command=self.iQuiz) 
+        btnQuiz.grid(row=0, column=5)
+        btnAttendance = Button(ButtonFrame, text="Attendance", bg="red", fg="white", bd=5, font=("arial", 12, "bold"), width=20, height=0, padx=2, pady=6, anchor=CENTER , command=self.iAttendance) 
+        btnAttendance.grid(row=0, column=6)
         
         
         
         # ==================================== TABLE ===================================
         # ==================================== SCROLLBAR ===================================
         
+        style = ttk.Style() 
+        style.theme_use('default') 
+        style.configure("Treeview", 
+                        background="lightgray", 
+                        foreground="black", 
+                        rowheight=85, 
+                        fieldbackground="lightgray") 
+        style.map('Treeview', background=[('selected', 'blue')])
+        
+        
+        
+        
+        
+        
         scroll_x = ttk.Scrollbar(DetailsFrame,orient=HORIZONTAL)
         scroll_y = ttk.Scrollbar(DetailsFrame,orient=VERTICAL)
-        self.College_table = ttk.Treeview(DetailsFrame,columns=("CollegeName","StudentName","Degree","Department","EnrollmentNo","FacultyName",
-                                                                "AdminName","Email","FacultyEmail","AdminEmail","FacultyEnrollmentNo","AdminEnrollmentNo"),xscrollcommand=scroll_x.set,yscrollcommand=scroll_y.set)
+        self.College_table = ttk.Treeview(DetailsFrame,columns=("CollegeNames","StudentName","Degree","Department","EnrollmentNo","FacultyName",
+                                                                "AdminName","Email","FacultyEmail","AdminEmail","FacultyEnrollmentNo","AdminEnrollmentNo"),xscrollcommand=scroll_x.set,yscrollcommand=scroll_y.set, style="Treeview")
         
         scroll_x.pack(side=BOTTOM, fill=X)
         scroll_y.pack(side=RIGHT, fill=Y)
@@ -296,7 +314,7 @@ class College:
         scroll_x = ttk.Scrollbar(command=self.College_table.xview)
         scroll_y = ttk.Scrollbar(command=self.College_table.yview)
 
-        # self.College_table.heading("CollegeNames",text="CollegeNames")
+        self.College_table.heading("CollegeNames",text="College Names")
         self.College_table.heading("StudentName",text="Student Name")
         self.College_table.heading("Degree",text="Degree")
         self.College_table.heading("Department",text="Department")
@@ -313,18 +331,18 @@ class College:
         self.College_table["show"]="headings"
         
         
-        # self.College_table.column("Nameofcollege",width=100)
+        self.College_table.column("CollegeNames",width=100)
         self.College_table.column("StudentName",width=100)
-        self.College_table.column("Degree",width=100)
+        self.College_table.column("Degree",width=70)
         self.College_table.column("Department",width=100)
         self.College_table.column("EnrollmentNo",width=100)
-        self.College_table.column("Email",width=100)
+        self.College_table.column("Email",width=70)
         self.College_table.column("FacultyName",width=100)
         self.College_table.column("FacultyEmail",width=100)
-        self.College_table.column("FacultyEnrollmentNo",width=100)
+        self.College_table.column("FacultyEnrollmentNo",width=130)
         self.College_table.column("AdminName",width=100)
         self.College_table.column("AdminEmail",width=100)
-        self.College_table.column("AdminEnrollmentNo",width=100)
+        self.College_table.column("AdminEnrollmentNo",width=130)
         
         
         self.College_table.pack(fill=BOTH,expand=1)
@@ -337,6 +355,39 @@ class College:
     def iUpdate(self):
         if self.Nameofcollege.get()=="" or self.ref.get()=="":
             messagebox.showerror("Error", "All fields are required")
+            
+    def iDelete(self):
+        if self.Nameofcollege.get()=="" or self.ref.get()=="":
+            messagebox.showerror("Error", "All fields are required")        
+            
+    def iClear(self):
+        if self.Nameofcollege.get()=="" or self.ref.get()=="":
+            messagebox.showerror("Error", "All fields are required")        
+            
+    def iExit(self):
+        if self.Nameofcollege.get()=="" or self.ref.get()=="":
+            messagebox.showerror("Error", "All fields are required")       
+            
+    def iQuiz(self):
+        if self.Nameofcollege.get()=="" or self.ref.get()=="":
+            messagebox.showerror("Error", "All fields are required")        
+            
+    def iAttendance(self):
+        if self.Nameofcollege.get()=="" or self.ref.get()=="":
+            messagebox.showerror("Error", "All fields are required")        
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
         
             return  # Exit the function if required fields are empty
 
@@ -346,19 +397,16 @@ class College:
             
 
             # Insert data into the database
-            my_cursor.execute("insert into college values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (
-                self.CollegeName.get(),
+            my_cursor.execute("insert into college values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (
+                self.CollegeNames.get(),
                 self.StudentName.get(),
-                # self.AcademicYear.get(),
+                
                 self.Degree.get(),
                 self.Department.get(),
                 self.EnrollmentNo.get(),
-                # self.EnrollmentNo.get(),
-                # self.AcademicYear.get(),
+                
                 self.Email.get(),
-                # self.PhoneNo.get(),
-                # self.Semester.get(),
-                # self.Grades.get(),
+                
                 self.FacultyName.get(),
                 self.FacultyEmail.get(),
                 self.FacultyEnrollmentNo.get(),
